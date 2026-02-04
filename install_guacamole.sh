@@ -28,6 +28,7 @@ sudo apt install -y build-essential libcairo2-dev libjpeg-turbo8-dev \
 # 2. Building Guacamole Server
 cd "$REAL_HOME"
 wget https://downloads.apache.org/guacamole/${GUAC_VERSION}/source/guacamole-server-${GUAC_VERSION}.tar.gz
+sudo chown $REAL_USER:$REAL_USER guacamole-server-${GUAC_VERSION}.tar.gz
 tar -xvf guacamole-server-${GUAC_VERSION}.tar.gz
 cd "$REAL_HOME"/guacamole-server-${GUAC_VERSION}
 ./configure --with-systemd-dir=/etc/systemd/system --enable-allow-freerdp-snapshots
@@ -57,6 +58,9 @@ cd "$REAL_HOME"
 wget https://downloads.apache.org/guacamole/${GUAC_VERSION}/binary/guacamole-${GUAC_VERSION}.war
 wget https://dlcdn.apache.org/tomcat/jakartaee-migration/v${MIGRATION_TOOL_VER}/binaries/jakartaee-migration-${MIGRATION_TOOL_VER}-bin.tar.gz
 
+sudo chown $REAL_USER:$REAL_USER guacamole-${GUAC_VERSION}.war
+sudo chown $REAL_USER:$REAL_USER jakartaee-migration-${MIGRATION_TOOL_VER}-bin.tar.gz
+
 tar -xvf jakartaee-migration-${MIGRATION_TOOL_VER}-bin.tar.gz
 
 # Converting from Javax to Jakarta (Tomcat 10 Fix)
@@ -75,6 +79,7 @@ sudo mysql -e "FLUSH PRIVILEGES;"
 # 9. JDBC Extension & Connector
 cd "$REAL_HOME"
 wget https://downloads.apache.org/guacamole/${GUAC_VERSION}/binary/guacamole-auth-jdbc-${GUAC_VERSION}.tar.gz
+sudo chown $REAL_USER:$REAL_USER guacamole-auth-jdbc-${GUAC_VERSION}.tar.gz
 
 tar -xf guacamole-auth-jdbc-${GUAC_VERSION}.tar.gz
 sudo cp guacamole-auth-jdbc-${GUAC_VERSION}/mysql/guacamole-auth-jdbc-mysql-${GUAC_VERSION}.jar /etc/guacamole/extensions/
@@ -86,6 +91,7 @@ cat guacamole-auth-jdbc-${GUAC_VERSION}/mysql/schema/*.sql | sudo mysql ${DB_NAM
 # MySQL Connector
 cd "$REAL_HOME"
 wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-${MYSQL_CONN_VERSION}.tar.gz
+sudo chown $REAL_USER:$REAL_USER mysql-connector-j-${MYSQL_CONN_VERSION}.tar.gz
 tar -xf mysql-connector-j-${MYSQL_CONN_VERSION}.tar.gz
 sudo cp mysql-connector-j-${MYSQL_CONN_VERSION}/mysql-connector-j-${MYSQL_CONN_VERSION}.jar /etc/guacamole/lib/
 
