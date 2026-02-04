@@ -83,7 +83,7 @@ wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-${MYSQL_C
 tar -xf mysql-connector-j-${MYSQL_CONN_VERSION}.tar.gz
 sudo cp mysql-connector-j-${MYSQL_CONN_VERSION}/mysql-connector-j-${MYSQL_CONN_VERSION}.jar /etc/guacamole/lib/
 
-# 10. Guacamole Properties erstellen
+# 10. Creating Guacamole Properties
 sudo bash -c "cat > /etc/guacamole/guacamole.properties <<EOF
 # MySQL properties
 mysql-hostname: 127.0.0.1
@@ -96,17 +96,17 @@ guacd-hostname: localhost
 guacd-port: 4822
 EOF"
 
-# 11. Berechtigungen & Neustart
+# 11. Permissions & Reboot
 sudo systemctl daemon-reload
 sudo systemctl enable --now guacd tomcat10 mariadb
 sudo systemctl restart guacd tomcat10 mariadb
 
+# 12. Cleaning archive files
+sudo rm -r ~/*tar.gz
+
 echo "----------------------------------------------------------"
-echo "Installation abgeschlossen!"
+echo "Installation completed!"
 echo "URL: http://$(hostname -I | awk '{print $1}'):8080/guacamole"
 echo "Login: guacadmin / guacadmin"
 echo "----------------------------------------------------------"
-
-
-
 
