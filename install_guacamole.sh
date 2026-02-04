@@ -26,9 +26,10 @@ sudo apt install -y build-essential libcairo2-dev libjpeg-turbo8-dev \
     libavformat-dev wget
 
 # 2. Building Guacamole Server
+cd "$REAL_HOME"
 wget https://downloads.apache.org/guacamole/${GUAC_VERSION}/source/guacamole-server-${GUAC_VERSION}.tar.gz
 tar -xvf guacamole-server-${GUAC_VERSION}.tar.gz
-cd guacamole-server-${GUAC_VERSION}
+cd "$REAL_HOME"/guacamole-server-${GUAC_VERSION}
 ./configure --with-systemd-dir=/etc/systemd/system --enable-allow-freerdp-snapshots
 make -j$(nproc)
 sudo make install
@@ -57,12 +58,12 @@ wget https://downloads.apache.org/guacamole/${GUAC_VERSION}/binary/guacamole-${G
 wget https://dlcdn.apache.org/tomcat/jakartaee-migration/v${MIGRATION_TOOL_VER}/binaries/jakartaee-migration-${MIGRATION_TOOL_VER}-bin.tar.gz
 
 tar -xvf jakartaee-migration-${MIGRATION_TOOL_VER}-bin.tar.gz
-cd "$REAL_HOME"/jakartaee-migration-1.0.10-bin/jakartaee-migration-1.0.10/lib/
+cd "$REAL_HOME"/jakartaee-migration-${MIGRATION_TOOL_VER}-bin/jakartaee-migration-${MIGRATION_TOOL_VER}/lib/
 
 # Converting from Javax to Jakarta (Tomcat 10 Fix)
-java -jar apache-jakartaee-migration-${MIGRATION_TOOL_VER}/lib/jakartaee-migration-${MIGRATION_TOOL_VER}.jar guacamole-${GUAC_VERSION}.war guacamole-jakarta.war
+java -jar apache-jakartaee-migration-${MIGRATION_TOOL_VER}/lib/jakartaee-migration-${MIGRATION_TOOL_VER}.jar "$REAL_HOME"/guacamole-${GUAC_VERSION}.war "$REAL_HOME"/guacamole-jakarta.war
 
-sudo mv guacamole-jakarta.war /var/lib/tomcat10/webapps/guacamole.war
+sudo mv "$REAL_HOME"/guacamole-jakarta.war /var/lib/tomcat10/webapps/guacamole.war
 
 # 8. Database Setup
 sudo apt install -y mariadb-server
