@@ -58,10 +58,9 @@ wget https://downloads.apache.org/guacamole/${GUAC_VERSION}/binary/guacamole-${G
 wget https://dlcdn.apache.org/tomcat/jakartaee-migration/v${MIGRATION_TOOL_VER}/binaries/jakartaee-migration-${MIGRATION_TOOL_VER}-bin.tar.gz
 
 tar -xvf jakartaee-migration-${MIGRATION_TOOL_VER}-bin.tar.gz
-cd "$REAL_HOME"/jakartaee-migration-${MIGRATION_TOOL_VER}-bin/jakartaee-migration-${MIGRATION_TOOL_VER}/lib/
 
 # Converting from Javax to Jakarta (Tomcat 10 Fix)
-java -jar apache-jakartaee-migration-${MIGRATION_TOOL_VER}/lib/jakartaee-migration-${MIGRATION_TOOL_VER}.jar "$REAL_HOME"/guacamole-${GUAC_VERSION}.war "$REAL_HOME"/guacamole-jakarta.war
+java -jar "$REAL_HOME"/jakartaee-migration-${MIGRATION_TOOL_VER}/lib/jakartaee-migration-${MIGRATION_TOOL_VER}.jar "$REAL_HOME"/guacamole-${GUAC_VERSION}.war "$REAL_HOME"/guacamole-jakarta.war
 
 sudo mv "$REAL_HOME"/guacamole-jakarta.war /var/lib/tomcat10/webapps/guacamole.war
 
