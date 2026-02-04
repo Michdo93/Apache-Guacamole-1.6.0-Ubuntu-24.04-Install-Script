@@ -101,9 +101,6 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now guacd tomcat10 mariadb
 sudo systemctl restart guacd tomcat10 mariadb
 
-# 12. Cleaning archive files
-sudo rm -r ~/*tar.gz
-
 echo "----------------------------------------------------------"
 echo "Installation completed!"
 echo "URL: http://$(hostname -I | awk '{print $1}'):8080/guacamole"
